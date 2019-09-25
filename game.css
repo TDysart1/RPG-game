@@ -1,3 +1,39 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Fruktur', cursive;
+}
+
+body {
+    text-align: center;
+    width: 75%;
+}
+
+header {
+    background-color: rgba(190, 22, 22, 0.733)
+}
+
+.Warrior {
+    background-color: brown;
+}
+
+.Rogue {
+    background-color: purple;
+}
+
+.Mage {
+    background-color: blue;
+}
+
+.Hunter {
+    background-color: green;
+}
+
+p {
+    border-color: rgb(151, 130, 130);
+    border: 25%;
+    margin: 5px 0 5px 0;
+}
+
 img {
     width: 160px;
 }

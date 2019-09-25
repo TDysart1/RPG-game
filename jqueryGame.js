@@ -6,18 +6,20 @@ function dmgDone() {
         event.preventDefault();
         let playerAtt = Math.floor(playerStats[0].attack);
         let oppDef = Math.floor(charChosen.defense);
-        let total = Math.abs(playerAtt - oppDef);
+        let total = (playerAtt - oppDef);
 
 
         if (total > 0) {
             let heaP = charChosen.health - (total);
             let newHP = heaP;
+
             if (newHP > 0) {
                 let currentHP = newHP -= total;
-                console.log(currentHP)
-                alert(`Attack Health is ${currentHP}!`)
-                $('.oppHealth').change(`<p>${currentHP}</p>`)
-            } else if (currentHP < 0) {
+                console.log(total)
+                alert(`Attack Health is ${heaP}!`)
+
+                // $('.oppHealth').change(`<p>${currentHP}</p>`)
+            } else {
                 alert('You Died!')
             }
 

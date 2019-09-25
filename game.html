@@ -18,9 +18,16 @@
         <h2>Select your Character</h2>
     </header>
     <main class="startPage">
+        <select class="classPicked">
+            <option class='`${playerStats[0]}`'>Warrior</option>
+            <option class="${playerStats[1]}">Rogue</option>
+            <option class="${playerStats[2]}">Mage</option>
+            <option class="${playerStats[3]}">Hunter</option>
+        </select>
+        <div class="btnSelect"><button class="startBttn">Submit</button></div>
         <div class="Races">
             <section class="Warrior">
-                <a href='#'><img src="W.png" alt="Warrior"></a>
+                <img src="W.png" alt="Warrior">
                 <h3>Warrior</h3>
                 <p>This is the all-around class that is decent at damage, the tank of the group. Overall class</p>
 
@@ -32,13 +39,13 @@
 
             </section>
             <section class="Mage">
-                <a href='#'><img src="M.png" alt="Mage"></a>
+                <img src="M.png" alt="Mage">
                 <h3>Mage</h3>
                 <p>This is the glass cannon class. High Damage. Low health. Looking to burst you down before you can take them down.</p>
 
             </section>
             <section class="Hunter">
-                <a href='#'><img src="H.png" alt="Hunter"></a>
+                <img src="H.png" alt="Hunter">
                 <h3>Hunter</h3>
                 <p>The Hunter class is essentially the ranged version of the rogue. High damage from a distance.</p>
 

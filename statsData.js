@@ -1,30 +1,30 @@
 'use strict';
 
 const playerStats = [{
-        class: "Warrior",
+        class: 'Warrior',
         health: 300,
         attack: 110,
-        defense: 100,
+        defense: 10,
         agility: 2.5
 
     },
 
     {
-        class: "Rogue",
+        class: 'Rogue',
         health: 175,
         attack: 75,
         defense: 50,
         agility: 4
     },
     {
-        class: "Mage",
+        class: 'Mage',
         health: 100,
         attack: 100,
         defense: 25,
         agility: 1
     },
     {
-        class: "Hunter",
+        class: 'Hunter',
         health: 175,
         attack: 75,
         defense: 75,

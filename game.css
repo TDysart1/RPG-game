@@ -5,7 +5,7 @@
 
 body {
     text-align: center;
-    width: 75%;
+    width: 100%;
 }
 
 header {
@@ -26,14 +26,26 @@ header {
 
 .Hunter {
     background-color: green;
+    opacity: 25%;
 }
 
-p {
-    border-color: rgb(151, 130, 130);
-    border: 25%;
-    margin: 5px 0 5px 0;
+p>.Races {
+    padding-bottom: 20%;
 }
 
 img {
     width: 160px;
+}
+
+.Races>section {
+    font-size: 200%;
+}
+
+.battleArena {
+    display: flex;
+    flex-direction: column;
+}
+
+.Warrior>.charCheck {
+    background-color: brown;
 }

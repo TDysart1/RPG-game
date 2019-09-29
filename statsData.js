@@ -2,33 +2,41 @@
 
 const playerStats = [{
         class: 'Warrior',
+        image: 'W.png',
         health: 300,
-        attack: 110,
-        defense: 10,
-        agility: 2.5
+        attack: 15,
+        mana: 0,
+        agility: 7,
+        speed: 25
 
     },
 
     {
         class: 'Rogue',
+        image: 'R.png',
         health: 175,
-        attack: 75,
-        defense: 50,
-        agility: 4
+        attack: 25,
+        mana: 0,
+        agility: 7,
+        speed: 75
     },
     {
         class: 'Mage',
+        image: 'M.png',
         health: 100,
-        attack: 100,
-        defense: 25,
-        agility: 1
+        attack: 30,
+        mana: 4,
+        agility: 1,
+        speed: 50
     },
     {
         class: 'Hunter',
+        image: 'H.png',
         health: 175,
-        attack: 75,
-        defense: 75,
-        agility: 3
+        attack: 20,
+        mana: 2,
+        agility: 3,
+        speed: 75
     }
 ];
 const charChosen = playerStats[Math.floor(Math.random() * playerStats.length)];

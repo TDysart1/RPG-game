@@ -2,50 +2,95 @@
 let myChar = 0;
 
 
+//player damge calculation
+function playerDmgSteps() {
+    let baseDmg;
+    if (myChar.mana > 0) {
+        baseDmg = myChar.attack * myChar.mana / 1;
+    } else {
+        baseDmg = myChar.attack * myChar.agility / 1;
+    }
+    let offsetDmg = Math.floor(Math.random() * Math.floor(100));
+    let calcOutputDmg = baseDmg + offsetDmg;
+    return calcOutputDmg;
+}
+
+//enemy damage calculation 
+function enemyDmgSteps() {
+    let baseDmg;
+    if (charChosen.mana > 0) {
+        baseDmg = charChosen.attack * charChosen.mana / 1;
+    } else {
+        baseDmg = charChosen.attack * charChosen.agility / 1;
+    }
+    let offsetDmg = Math.floor(Math.random() * Math.floor(100));
+    let calcOutputDmg = baseDmg + offsetDmg;
+    return calcOutputDmg;
+
+}
+
+
+function DmgSteps() {
+    let getPlayerHealth = document.querySelector('.playerHealth');
+
+    let getEnemyHealth = document.querySelector('.oppHealth');
+    let playerSpeed = myChar.speed * Math.floor(Math.random() * Math.floor(10));
+    let oppSpeed = charChosen.speed * Math.floor(Math.random() * Math.floor(10));
+
+
+    if (playerSpeed >= oppSpeed) {
+        let totalDmg = playerDmgSteps();
+        charChosen.health = charChosen.health - totalDmg;
+        console.log(charChosen.health)
+        alert('GOTTEM ' + totalDmg + ' !' + 'Oppents health ' + charChosen.health + '!')
+        getEnemyHealth.innerHTML = 'Opponent Health: ' + charChosen.health;
+        if (charChosen.health <= 0) {
+            alert('You won refresh to play agian!');
+            $('.attack').hide()
+            $('.battleStage'.show("<button class = 'refresh'> Refresh </button>"));
+            $('.refresh').click(location.reload());
+            getEnemyHealth.innerHTML = 'Opponent Health: 0';
+        } else {
+            getEnemyHealth.innerHTML = 'Opponent Health: ' + charChosen.health;
+        }
+    } else if (oppSpeed > playerSpeed) {
+        //enemy attacks since still alive
+        let totalDmg = enemyDmgSteps();
+
+        myChar.health = myChar.health - totalDmg;
+        console.log(myChar.health)
+        alert('They hit ' + totalDmg + ' !' + 'your health ' + myChar.health + '!')
+        getPlayerHealth.innerHTML = 'Player Health: ' + myChar.health;
+        if (myChar.health <= 0) {
+            alert('You lost refresh to play agian!');
+            $('.attack').hide()
+            $('.battleStage'.show("<button class = 'refresh'> Refresh </button>"));
+            $('.refresh').click(location.reload());
+            getPlayerHealth.innerHTML = 'Player Health: 0';
+        } else {
+            getPlayerHealth.innerHTML = 'Player Health: ' + myChar.health;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 //attack function
 function dmgDone() {
     $('.attack').click(function() {
-
         event.preventDefault();
-        let playerAtt = Math.floor(myChar.attack);
-        let oppDef = Math.floor(charChosen.defense);
-        let total = (playerAtt - oppDef);
-        let heaP = charChosen.health - total;
+        DmgSteps();
 
 
-
-        if (heaP > 0) {
-            let currentHP = heaP - total;
-            $('.oppHealth').text(`Health:${currentHP}`).change().val();
-        }
-
-
-
-
-
-
-
-
-        // let newHP = currentHP -= total;
-        // $('.oppHealth').text(`Health:${newHP}`).change();
-        // console.log(newHP);
-        // }
-        //         alert(`Attack Health is ${heaP}!`);
-
-        //         // $('.oppHealth').change(`<p>${currentHP}</p>`)
-        //     } else {
-        //         alert('You Died!')
-        //     }
-
-        // }
-        // if (total <= 0) {
-        //     alert(`Block! Health is unchanged!`)
-
-        // }
-        // if (heaP > total) {
-        //     --heaP;
-        //     console.log(heaP);
-        // }
 
 
     })
@@ -64,21 +109,23 @@ function randomChar() {
 
     console.log(charChosen);
     $('.battleArena').after(`<section class = 'opponent'><h3 class = 'oppChoosen'>  ${charChosen.class} </h3>
-        <p>Health:${charChosen.health} </p>
+         
          <p>Attack:${charChosen.attack} </p>
-         <p>Defense:${charChosen.defense} </p>
-         <p>Agility:${charChosen.agility} </p></section>`);
+         <p>Mana:${charChosen.mana} </p>
+         <p>Agility:${charChosen.agility} </p>
+         <p>Speed:${charChosen.speed} </p></section>`);
 }
 
 //when you say yes
 function arenaBattle() {
 
     // charStored();
-    $('.battleArena').html(`<div class = 'battleStage'> <button class = 'attack'> ATTACK </button> 
-        <button class = 'defend'> DEFEND </button> <p class = 'yourHealth'> Health:${myChar.health}</p>
-        <p class = 'oppHealth'> Health:${charChosen.health}</p> </div>`)
+    $('.battleArena').html(`<div class = 'battleStage'> <p class = 'playerHealth'> Player Health:${myChar.health}</p> <button class = 'attack'> ATTACK </button>
+        <p class = 'oppHealth'> Opponent Health:${charChosen.health}</p> </div>`)
     $('.chooseAns').hide();
     $('.typeChosen').hide();
+    $('.charHealth').hide();
+    $('.myCharHealth').hide();
     randomChar();
     dmgDone();
 }
@@ -123,37 +170,41 @@ function verify() {
                 warriorPicked();
                 $('.charStats').html(`<div class = 'charCheck'><h2 class = typeChosen> You have selected ${classChosen} !</h2>
             <h3>${playerStats[0].class}</h3>
-            <p>Health:${playerStats[0].health} </p>
+            <p class = 'myCharHealth'>Health:${playerStats[0].health} </p>
             <p>Attack:${playerStats[0].attack} </p>
-            <p>Defense:${playerStats[0].defense} </p>
-            <p>Agility:${playerStats[0].agility} </p></div>`);
+            <p>Mana:${playerStats[0].mana} </p>
+            <p>Agility:${playerStats[0].agility} </p>
+            <p>Speed:${playerStats[0].speed} </p></div>`);
                 break;
             case playerStats[1].class:
                 roguePicked();
                 $('.charStats').html(`<div class = 'charCheck'><h2 class = typeChosen> You have selected ${classChosen} !</h2>
                    <h3>${playerStats[1].class}</h3>
-                   <p>Health:${playerStats[1].health} </p>
+                   <p class = 'myCharHealth'>Health:${playerStats[1].health} </p>
                    <p>Attack:${playerStats[1].attack} </p>
-                   <p>Defense:${playerStats[1].defense} </p>
-                   <p>Agility:${playerStats[1].agility} </p></div>`);
+                   <p>Mana:${playerStats[1].mana} </p> 
+                   <p>Agility:${playerStats[1].agility} </p>
+                   <p>Speed:${playerStats[1].speed} </p></div>`);
                 break;
             case playerStats[2].class:
                 magePicked();
                 $('.charStats').html(`<div class = 'charCheck'><h2 class = typeChosen> You have selected ${classChosen} !</h2>
             <h3>${playerStats[2].class}</h3>
-            <p>Health:${playerStats[2].health} </p>
+            <p class = 'myCharHealth'>Health:${playerStats[2].health} </p>
             <p>Attack:${playerStats[2].attack} </p>
-            <p>Defense:${playerStats[2].defense} </p>
-            <p>Agility:${playerStats[2].agility} </p></div>`);
+            <p>Mana:${playerStats[2].mana} </p>
+            <p>Agility:${playerStats[2].agility} </p>
+            <p>Speed:${playerStats[2].speed} </p></div>`);
                 break;
             case playerStats[3].class:
                 hunterPicked();
                 $('.charStats').html(`<div class = 'charCheck'><h2 class = typeChosen> You have selected ${classChosen} !</h2>
             <h3>${playerStats[3].class}</h3>
-            <p>Health:${playerStats[3].health} </p>
+            <p class = 'myCharHealth'>Health:${playerStats[3].health} </p>
             <p>Attack:${playerStats[3].attack} </p>
-            <p>Defense:${playerStats[3].defense} </p>
-            <p>Agility:${playerStats[3].agility} </p></div>`);
+            <p>Mana:${playerStats[3].mana} </p>
+            <p>Agility:${playerStats[3].agility} </p>
+            <p>Speed:${playerStats[3].speed} </p></div>`);
                 break;
         }
         $('header').hide();
